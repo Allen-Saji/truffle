@@ -12,6 +12,7 @@
   "author": "Allen Saji",
   "license": "MIT",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.8.3"
+    "@openzeppelin/contracts": "^4.8.3",
+    "truffle-assertions": "^0.9.2"
   }
 }
