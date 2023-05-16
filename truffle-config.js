@@ -45,6 +45,12 @@
 // const { MNEMONIC, PROJECT_ID } = process.env;
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const fs = require("fs");
+const mnemonicPhrase = fs.readFileSync(".secret").toString().trim();
+const infuraProjectID = fs.readFileSync(".infura").toString().trim();
+const etherscanKey = fs.readFileSync(".etherscan").toString().trim();
+//...more code
 
 module.exports = {
   /**
@@ -63,6 +69,28 @@ module.exports = {
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
     },
+    // goerli: {
+    //   // must be a thunk, otherwise truffle commands may hang in CI
+    //   provider: () =>
+    //     new HDWalletProvider({
+    //       mnemonic: {
+    //         phrase: mnemonicPhrase,
+    //       },
+    //       providerOrUrl: "https://goerli.infura.io/v3/" + infuraProjectID,
+    //     }),
+    //   network_id: "5",
+    // },
+    // sepolia: {
+    //   // must be a thunk, otherwise truffle commands may hang in CI
+    //   provider: () =>
+    //     new HDWalletProvider({
+    //       mnemonic: {
+    //         phrase: mnemonicPhrase,
+    //       },
+    //       providerOrUrl: "https://sepolia.infura.io/v3/" + infuraProjectID,
+    //     }),
+    //   network_id: "11155111",
+    // },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache, geth, or parity) in a separate terminal
@@ -143,4 +171,8 @@ module.exports = {
   //     }
   //   }
   // }
+  plugins: ["truffle-plugin-verify"],
+  api_keys: {
+    etherscan: etherscanKey,
+  },
 };
